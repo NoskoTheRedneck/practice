@@ -1,0 +1,53 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+// Problem Statement
+//
+// Given a string with the hour:minute of a time, return a string with the binary representation of the hour:minute.
+// https://www.uncommongoods.com/images/items/16200/16293_1_640px.jpg
+// https://www.rapidtables.com/convert/number/decimal-to-binary.html
+//
+// Input:    10:03
+// Output:   1010:000011
+public class Solution {
+
+   static String getBinaryHourMinute(String time) {
+      //returns a string array
+      String[] split = time.split(":");
+      
+      //convert to an integer
+      String hourString = split[0];
+      String minuteString = split[1];
+      int hour = Integer.parseInt(hourString);
+      int minute = Integer.parseInt(minuteString);
+
+      String result = "";
+      String resultHour = timeResult(hour, 4);
+      String resultMinute = timeResult(minute, 6);
+
+      return resultHour + ":" + resultMinute;
+   }
+   
+   static String timeResult(int hour, int padding) {
+       String result = "";
+       while (hour > 0) {    
+          int remainder = hour % 2; 
+          result = remainder + "" + result; 
+          hour = hour / 2; 
+          
+      }
+      for(int i = result.length(); i < padding; i++){
+          result = "0" + result;
+      }
+      return result;
+   }
+
+   public static void main(String[] args) {
+      System.out.println("01:01 : 0001:000001......" + getBinaryHourMinute("01:01"));
+      System.out.println("10:03 : 1010:000011......" + getBinaryHourMinute("10:03"));
+      System.out.println("12:59 : 1100:111011......" + getBinaryHourMinute("12:59"));
+   }
+}
